@@ -100,13 +100,13 @@ impl<DB> Inspector<DB> for InspectorStack
 where
     DB: Database,
 {
-    fn initialize_interp(&mut self, interpreter: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn initialize_interp(&mut self, interpreter: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         call_inspectors!(inspector, [&mut self.custom_print_tracer], {
             inspector.initialize_interp(interpreter, data);
         });
     }
 
-    fn step(&mut self, interpreter: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn step(&mut self, interpreter: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         call_inspectors!(inspector, [&mut self.custom_print_tracer], {
             inspector.step(interpreter, data);
         });
@@ -124,7 +124,7 @@ where
         });
     }
 
-    fn step_end(&mut self, interpreter: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn step_end(&mut self, interpreter: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         call_inspectors!(inspector, [&mut self.custom_print_tracer], {
             inspector.step_end(interpreter, data);
         });

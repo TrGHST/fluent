@@ -22,7 +22,7 @@ impl<DB> Inspector<DB> for OpcodeCountInspector
 where
     DB: Database,
 {
-    fn step(&mut self, _interp: &mut Interpreter<'_>, _data: &mut EVMData<'_, DB>) {
+    fn step(&mut self, _interp: &mut Interpreter, _data: &mut EVMData<'_, DB>) {
         self.count += 1;
     }
 }

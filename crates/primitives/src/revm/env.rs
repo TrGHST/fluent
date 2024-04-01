@@ -19,8 +19,8 @@ pub fn fill_cfg_and_block_env(
     total_difficulty: U256,
 ) {
     fill_cfg_env(cfg, chain_spec, header, total_difficulty);
-    let after_merge = cfg.spec_id >= SpecId::MERGE;
-    fill_block_env(block_env, chain_spec, header, after_merge);
+    // let after_merge = cfg.spec_id >= SpecId::MERGE;
+    fill_block_env(block_env, chain_spec, header, true);
 }
 
 /// Fill [CfgEnv] fields according to the chain spec and given header
@@ -30,19 +30,19 @@ pub fn fill_cfg_env(
     header: &Header,
     total_difficulty: U256,
 ) {
-    let spec_id = revm_spec(
-        chain_spec,
-        Head {
-            number: header.number,
-            timestamp: header.timestamp,
-            difficulty: header.difficulty,
-            total_difficulty,
-            hash: Default::default(),
-        },
-    );
+    // let spec_id = revm_spec(
+    //     chain_spec,
+    //     Head {
+    //         number: header.number,
+    //         timestamp: header.timestamp,
+    //         difficulty: header.difficulty,
+    //         total_difficulty,
+    //         hash: Default::default(),
+    //     },
+    // );
 
     cfg_env.chain_id = chain_spec.chain().id();
-    cfg_env.spec_id = spec_id;
+    // cfg_env.spec_id = spec_id;
     cfg_env.perf_analyse_created_bytecodes = AnalysisKind::Analyse;
 
     #[cfg(feature = "optimism")]

@@ -69,14 +69,14 @@ where
     DB: Database,
     INSP: Inspector<DB>,
 {
-    fn initialize_interp(&mut self, interp: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn initialize_interp(&mut self, interp: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         match self {
             MaybeOwnedInspector::Owned(insp) => insp.borrow_mut().initialize_interp(interp, data),
             MaybeOwnedInspector::Stacked(_) => {}
         }
     }
 
-    fn step(&mut self, interp: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn step(&mut self, interp: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         match self {
             MaybeOwnedInspector::Owned(insp) => insp.borrow_mut().step(interp, data),
             MaybeOwnedInspector::Stacked(_) => {}
@@ -98,7 +98,7 @@ where
         }
     }
 
-    fn step_end(&mut self, interp: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn step_end(&mut self, interp: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         match self {
             MaybeOwnedInspector::Owned(insp) => insp.borrow_mut().step_end(interp, data),
             MaybeOwnedInspector::Stacked(_) => {}

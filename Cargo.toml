@@ -87,6 +87,7 @@ codegen-units = 1
 incremental = false
 
 [workspace.dependencies]
+zstd-sys = { version = "=2.0.9" }
 # reth
 reth = { path = "./bin/reth" }
 reth-primitives = { path = "./crates/primitives" }
@@ -113,12 +114,14 @@ reth-tokio-util = { path = "crates/tokio-util" }
 
 # revm
 revm = { git = "https://github.com/fluentlabs-xyz/revm-rwasm", branch = "devel" }
+#revm = { path = "../revm-rwasm/crates/revm" }
 revm-primitives = { git = "https://github.com/fluentlabs-xyz/revm-rwasm", branch = "devel" }
+#revm-primitives = { path = "../revm-rwasm/crates/primitives" }
 
 # eth
-alloy-primitives = "0.5.2"
-alloy-dyn-abi = "0.5.2"
-alloy-sol-types = "0.5.2"
+alloy-primitives = "0.6"
+alloy-dyn-abi = "0.6"
+alloy-sol-types = "0.6"
 alloy-rlp = "0.3"
 ethers-core = { version = "2.0", default-features = false }
 ethers-providers = { version = "2.0", default-features = false }
@@ -180,7 +183,7 @@ secp256k1 = { version = "0.27.0", default-features = false, features = [
 ] }
 enr = { version = "0.9", default-features = false, features = ["k256"] }
 # for eip-4844
-c-kzg = "0.4.0"
+c-kzg = "1.0"
 
 # config
 confy = "0.5"

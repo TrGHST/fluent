@@ -271,7 +271,7 @@ impl TracingInspector {
     ///
     /// This expects an existing [CallTrace], in other words, this panics if not within the context
     /// of a call.
-    fn start_step<DB: Database>(&mut self, interp: &Interpreter<'_>, data: &EVMData<'_, DB>) {
+    fn start_step<DB: Database>(&mut self, interp: &Interpreter, data: &EVMData<'_, DB>) {
         let trace_idx = self.last_trace_idx();
         let trace = &mut self.traces.arena[trace_idx];
 
@@ -319,7 +319,7 @@ impl TracingInspector {
     /// Invoked on [Inspector::step_end].
     fn fill_step_on_step_end<DB: Database>(
         &mut self,
-        interp: &Interpreter<'_>,
+        interp: &Interpreter,
         data: &EVMData<'_, DB>,
     ) {
         let StackStep { trace_idx, step_idx } =
@@ -381,11 +381,11 @@ impl<DB> Inspector<DB> for TracingInspector
 where
     DB: Database,
 {
-    fn initialize_interp(&mut self, interp: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn initialize_interp(&mut self, interp: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         self.gas_inspector.initialize_interp(interp, data)
     }
 
-    fn step(&mut self, interp: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn step(&mut self, interp: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         if self.config.record_steps {
             self.gas_inspector.step(interp, data);
             self.start_step(interp, data);
@@ -410,7 +410,7 @@ where
         }
     }
 
-    fn step_end(&mut self, interp: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn step_end(&mut self, interp: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         if self.config.record_steps {
             self.gas_inspector.step_end(interp, data);
             self.fill_step_on_step_end(interp, data);

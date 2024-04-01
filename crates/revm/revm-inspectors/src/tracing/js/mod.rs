@@ -286,7 +286,7 @@ impl<DB> Inspector<DB> for JsInspector
 where
     DB: Database,
 {
-    fn step(&mut self, interp: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn step(&mut self, interp: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         if self.step_fn.is_none() {
             return
         }
@@ -323,7 +323,7 @@ where
     ) {
     }
 
-    fn step_end(&mut self, interp: &mut Interpreter<'_>, data: &mut EVMData<'_, DB>) {
+    fn step_end(&mut self, interp: &mut Interpreter, data: &mut EVMData<'_, DB>) {
         if self.step_fn.is_none() {
             return
         }
